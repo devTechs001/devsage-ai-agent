@@ -1,0 +1,2414 @@
+{
+  "summary": {
+    "repo": "C:\\Users\\Melanie\\devsage",
+    "file_count": 265
+  },
+  "items": [
+    {
+      "path": ".env.example",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "text",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": ".gitignore",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "text",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": ".pre-commit-config.yaml",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "yaml",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "CHANGELOG.md",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "markdown",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "devsage-activate.ps1",
+      "size": 1477,
+      "sha256": "686aa1c58ee121949f115205cdf5a8a0d60e122ce2d813c23c30749b83aea18c",
+      "language": "powershell",
+      "line_count": 45,
+      "first_lines": "# DevSage Virtual Environment Activator\nparam()\n\nfunction Start-DevSageVenv {\n    $venvPath = \"$PWD\\venv\"\n    \n    Write-Host \"🚀 Starting DevSage Virtual Environment...\" -ForegroundColor Cyan\n    \n    # Check if venv exists\n    if (-not (Test-Path \"$venvPath\")) {\n        Write-Host \"Creating virtual environment...\" -ForegroundColor Yellow\n        python -m venv venv\n        if (-not (Test-Path \"$venvPath\")) {\n            Write-Host \"❌ Failed to create virtual environment\" -ForegroundColor Red\n            return\n        }\n    }\n    \n    # Set environment variables\n    $env:VIRTUAL_ENV = $venvPath\n",
+      "symbols": []
+    },
+    {
+      "path": "docker-compose.override.yml",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "yaml",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "install-devsage.ps1",
+      "size": 2774,
+      "sha256": "ab425058cb0aa10104eb0b200547dfd4684a8e10e754a3dd9dd98f91cd47b86d",
+      "language": "powershell",
+      "line_count": 90,
+      "first_lines": "Write-Host \"🚀 Installing DevSage Dependencies...\" -ForegroundColor Cyan\n\n# Function to install with fallback\nfunction Install-WithFallback {\n    param([string], [string] = )\n    \n    try {\n        Write-Host \"Installing ...\" -ForegroundColor Yellow -NoNewline\n        pip install \n        Write-Host \" ✅\" -ForegroundColor Green\n        return True\n    } catch {\n        Write-Host \" ❌\" -ForegroundColor Red\n        if () {\n            Write-Host \"Trying fallback: ...\" -ForegroundColor Yellow -NoNewline\n            try {\n                pip install \n                Write-Host \" ✅\" -ForegroundColor Green\n                return True\n            } catch {\n",
+      "symbols": []
+    },
+    {
+      "path": "LICENSE",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "text",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "Makefile",
+      "size": 688,
+      "sha256": "253c3e56c6ed18d2e9a80a86fc85ada689a4ffcda71e609dc1f5354073408121",
+      "language": "text",
+      "line_count": 37,
+      "first_lines": ".PHONY: install dev research backend frontend test format clean\n\ninstall:\n\tpython -m venv venv\n\t./venv/bin/pip install -r requirements.txt\n\tcd gui && npm install\n\tcd extensions/vscode && npm install\n\ndev:\n\tdocker-compose up -d ollama\n\tmake backend & make frontend\n\nbackend:\n\tuvicorn api.main:app --reload --host 0.0.0.0 --port 8000\n\nfrontend:\n\tcd gui && npm start\n\nresearch:\n\tjupyter lab notebooks/ --port 8888\n",
+      "symbols": []
+    },
+    {
+      "path": "pyproject.toml",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "text",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "README.md",
+      "size": 673701,
+      "sha256": "0fe1de861000fbc2d84a490e02f9cab0e7728720534305448fb75fe38cbd4f05",
+      "language": "markdown",
+      "line_count": 23746,
+      "first_lines": "# 🚀 DevSage: Complete Full-Stack AI Coding Agent Documentation\n\n## 📋 Table of Contents\n1. [Enhanced Project Structure](#-enhanced-project-structure)\n2. [Comprehensive Setup Guide](#-comprehensive-setup-guide)\n3. [Multi-Language Support Architecture](#-multi-language-support-architecture)\n4. [Advanced Agent System](#-advanced-agent-system)\n5. [Enhanced Backend API](#-enhanced-backend-api)\n6. [IDE Integration Best Practices](#-ide-integration-best-practices)\n7. [Development Best Practices](#-development-best-practices)\n8. [Additional Features](#-additional-features)\n9. [Deployment & Scaling](#-deployment--scaling)\n\n---\n\n## 🏗️ Enhanced Project Structure\n\n```\ndevsage/\n├── agents/                          # Core AI Agents\n",
+      "symbols": []
+    },
+    {
+      "path": "requirements-dev.txt",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "text",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "requirements.txt",
+      "size": 2518,
+      "sha256": "fdb6e7bffc2d495590aed23b46f6bea11e03d734ade2b5b9945f765e682fd760",
+      "language": "text",
+      "line_count": 103,
+      "first_lines": "# =============================================\n# CORE AI & MACHINE LEARNING\n# =============================================\nlangchain==0.1.14\nlangchain-community==0.0.29\nopenai==1.30.2\nollama==0.1.9  # Available version\nfaiss-cpu==1.10.0\nsentence-transformers==2.7.0\ntransformers==4.37.2\ntorch==2.1.2\nnumpy==1.26.4\npandas==2.2.1\nscikit-learn==1.4.1.post1\n\n# =============================================\n# WEB FRAMEWORK & API\n# =============================================\nfastapi==0.104.1  # Downgraded for compatibility\nuvicorn[standard]==0.24.0\n",
+      "symbols": []
+    },
+    {
+      "path": "setup.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "structure.md",
+      "size": 18583,
+      "sha256": "bff917a43d8f004d5ad6f3e98bac8158a54c3686b3e42e945fac511d277bf14e",
+      "language": "markdown",
+      "line_count": 360,
+      "first_lines": "devsage/\n├── 📁 agents/                          # Core AI Agents\n│   ├── __init__.py\n│   ├── base_agent.py                   # Base agent class\n│   ├── coordinator.py                  # Main routing agent\n│   ├── reader.py                       # File reading agent\n│   ├── writer.py                       # File writing agent\n│   ├── editor.py                       # Code editing agent\n│   ├── executor.py                     # Code execution agent\n│   ├── analyzer.py                     # Code analysis agent\n│   ├── debugger.py                     # Debugging assistant\n│   ├── security.py                     # Security scanning agent\n│   ├── memory.py                       # Conversation memory\n│   └── language_specialist.py          # Language-specific operations\n├── 📁 api/                             # FastAPI Backend\n│   ├── __init__.py\n│   ├── main.py                         # FastAPI app entry point\n│   ├── models.py                       # Pydantic models\n│   ├── dependencies.py                 # API dependencies\n│   ├── middleware/                     # Custom middleware\n",
+      "symbols": []
+    },
+    {
+      "path": ".devcontainer/devcontainer.json",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "json",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": ".devcontainer/Dockerfile",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "text",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": ".devcontainer/setup.sh",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "shell",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": ".github/workflows/cd.yml",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "yaml",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": ".github/workflows/ci.yml",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "yaml",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": ".github/workflows/release.yml",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "yaml",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": ".github/workflows/tests.yml",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "yaml",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": ".github/workflows/ISSUE_TEMPLATE/bug_report.md",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "markdown",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": ".github/workflows/ISSUE_TEMPLATE/documentation.md",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "markdown",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": ".github/workflows/ISSUE_TEMPLATE/feature_request.md",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "markdown",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": ".github/workflows/ISSUE_TEMPLATE/PULL_REQUEST_TEMPLATE.md",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "markdown",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": ".vscode/extensions.json",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "json",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": ".vscode/launch.json",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "json",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": ".vscode/settings.json",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "json",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": ".vscode/tasks.json",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "json",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": ".vscode/snippets/devsage.json",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "json",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": ".vscode/snippets/javascript.json",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "json",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": ".vscode/snippets/python.json",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "json",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "agents/analyzer.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "agents/base_agent.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "agents/coordinator.py",
+      "size": 3077,
+      "sha256": "f37134d9b52e3aa37dd3badac2ec01863dba9c3e95df5d27c8d4868edfdd0e65",
+      "language": "python",
+      "line_count": 115,
+      "first_lines": "from fastapi import FastAPI, Depends, HTTPException, BackgroundTasks\nfrom fastapi.middleware.cors import CORSMiddleware\nfrom fastapi.middleware.trustedhost import TrustedHostMiddleware\nfrom fastapi.security import HTTPBearer, HTTPAuthorizationCredentials\nfrom contextlib import asynccontextmanager\nimport logging\nfrom datetime import datetime\nfrom typing import Dict, Any\n\nfrom core.config import settings\nfrom core.logger import setup_logging\nfrom agents.coordinator import EnhancedCoordinatorAgent\n\n# Setup logging\nsetup_logging()\nlogger = logging.getLogger(__name__)\n\n# Security\nsecurity = HTTPBearer()\n\n",
+      "symbols": []
+    },
+    {
+      "path": "agents/debugger.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "agents/editor.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "agents/executor.py",
+      "size": 1365,
+      "sha256": "fa7535be81f06f4e0eff7998b56c45d6e094586fa7b138093f5d7924e7e62d08",
+      "language": "python",
+      "line_count": 37,
+      "first_lines": "import subprocess\nimport os\nimport logging\nfrom languages.manager import LanguageManager\n\nclass ExecutorAgent:\n    def __init__(self):\n        self.logger = logging.getLogger(__name__)\n        self.language_manager = LanguageManager()\n    \n    async def process(self, user_input: str, context: dict) -> dict:\n        try:\n            filepath = self._extract_filepath(user_input, context)\n            \n            if not filepath or not os.path.exists(filepath):\n                return {\"error\": f\"File not found: {filepath}\"}\n            \n            # Get appropriate language executor\n            language = self.language_manager.get_language(filepath)\n            result = language.execute(filepath)\n",
+      "symbols": [
+        "ExecutorAgent"
+      ]
+    },
+    {
+      "path": "agents/language_specialist.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "agents/memory.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "agents/reader.py",
+      "size": 1618,
+      "sha256": "8f1f48ec28c5d3900b05a35e902c39089b81ecb2367d97ae5f15cd2f076249d9",
+      "language": "python",
+      "line_count": 44,
+      "first_lines": "import os\nimport logging\n\nclass ReaderAgent:\n    def __init__(self):\n        self.logger = logging.getLogger(__name__)\n    \n    async def process(self, user_input: str, context: dict) -> dict:\n        try:\n            # Extract filepath from user input or context\n            filepath = self._extract_filepath(user_input, context)\n            \n            if not filepath or not os.path.exists(filepath):\n                return {\"error\": f\"File not found: {filepath}\"}\n            \n            content = self.read_file(filepath)\n            summary = await self.summarize_content(content)\n            \n            return {\n                \"filepath\": filepath,\n",
+      "symbols": [
+        "ReaderAgent"
+      ]
+    },
+    {
+      "path": "agents/security.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "agents/writer.py",
+      "size": 1489,
+      "sha256": "075fd2abffe4cb099cb24aece8a22415b62590494869749f9c0a02a245aa8521",
+      "language": "python",
+      "line_count": 38,
+      "first_lines": "import os\nimport logging\n\nclass WriterAgent:\n    def __init__(self):\n        self.logger = logging.getLogger(__name__)\n    \n    async def process(self, user_input: str, context: dict) -> dict:\n        try:\n            filepath = self._extract_filepath(user_input, context)\n            content = self._extract_content(user_input, context)\n            \n            if not filepath:\n                return {\"error\": \"No filepath specified\"}\n            \n            result = self.write_file(filepath, content)\n            return {\"success\": True, \"result\": result}\n        except Exception as e:\n            self.logger.error(f\"Writer agent failed: {e}\")\n            return {\"error\": str(e)}\n",
+      "symbols": [
+        "WriterAgent"
+      ]
+    },
+    {
+      "path": "agents/_init_.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "api/dependencies.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "api/main.py",
+      "size": 3077,
+      "sha256": "f37134d9b52e3aa37dd3badac2ec01863dba9c3e95df5d27c8d4868edfdd0e65",
+      "language": "python",
+      "line_count": 115,
+      "first_lines": "from fastapi import FastAPI, Depends, HTTPException, BackgroundTasks\nfrom fastapi.middleware.cors import CORSMiddleware\nfrom fastapi.middleware.trustedhost import TrustedHostMiddleware\nfrom fastapi.security import HTTPBearer, HTTPAuthorizationCredentials\nfrom contextlib import asynccontextmanager\nimport logging\nfrom datetime import datetime\nfrom typing import Dict, Any\n\nfrom core.config import settings\nfrom core.logger import setup_logging\nfrom agents.coordinator import EnhancedCoordinatorAgent\n\n# Setup logging\nsetup_logging()\nlogger = logging.getLogger(__name__)\n\n# Security\nsecurity = HTTPBearer()\n\n",
+      "symbols": []
+    },
+    {
+      "path": "api/models.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "api/_init_.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "api/middleware/auth.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "api/middleware/cors.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "api/middleware/logging.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "api/middleware/_init_.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "api/routes/agents.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "api/routes/chat.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "api/routes/files.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "api/routes/health.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "api/routes/projects.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "api/routes/_init.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "api/websockets/handlers.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "api/websockets/manager.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "api/websockets/_init_.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "config/default.yaml",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "yaml",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "config/development.yaml",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "yaml",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "config/production.yaml",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "yaml",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "config/testing.yaml",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "yaml",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "config/agents/coordinator.yaml",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "yaml",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "config/agents/executor.yaml",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "yaml",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "config/agents/reader.yaml",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "yaml",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "config/languages/java.yaml",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "yaml",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "config/languages/javascript.yaml",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "yaml",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "config/languages/ptyhon.yaml",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "yaml",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "core/config.py",
+      "size": 580,
+      "sha256": "15faed469163b6aba620c44e1ffc1f2a57897c51808dc398c26f29cb43b8a4cc",
+      "language": "python",
+      "line_count": 24,
+      "first_lines": "from pydantic_settings import BaseSettings\nfrom typing import Optional\n\nclass Settings(BaseSettings):\n    # API Settings\n    api_host: str = \"0.0.0.0\"\n    api_port: int = 8000\n    debug: bool = False\n    \n    # Security\n    secret_key: str = \"devsage_secret_key_change_in_production\"\n    \n    # Ollama\n    ollama_host: str = \"http://localhost:11434\"\n    ollama_model: str = \"deepseek-coder:6.7b\"\n    \n    # File paths\n    workspace_dir: str = \"./workspace\"\n    logs_dir: str = \"./logs\"\n    \n",
+      "symbols": [
+        "Settings"
+      ]
+    },
+    {
+      "path": "core/constants.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "core/exceptions.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "core/logger.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "core/monitoring.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "core/security.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "core/utils.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "core/_init_.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "docker/docker-compose-prod.yml",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "yaml",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "docker/docker-compose.test.yml",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "yaml",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "docker/docker-compose.yml",
+      "size": 376,
+      "sha256": "6151737733977f57661c5f2ef3b1d6114e22721e241c2667842fc20ffc999fd3",
+      "language": "yaml",
+      "line_count": 23,
+      "first_lines": "version: '3.8'\n\nservices:\n  devsage:\n    build: .\n    ports:\n      - \"8000:8000\"\n    environment:\n      - OLLAMA_HOST=http://ollama:11434\n    volumes:\n      - ./data:/app/data\n    depends_on:\n      - ollama\n\n  ollama:\n    image: ollama/ollama:latest\n    ports:\n      - \"11434:11434\"\n    volumes:\n      - ollama_data:/root/.ollama\n",
+      "symbols": []
+    },
+    {
+      "path": "docker/Dockerfile",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "text",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "docker/Dockerfile.api",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "text",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "docker/Dockerfile.gui",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "text",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "docker/nginx/nginx.config",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "text",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "docker/nginx/ssl/devsage.crt",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "text",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "docker/nginx/ssl/devsage.key",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "text",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "docker/nginx/templates/api.config",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "text",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "docker/nginx/templates/gui.config",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "text",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "docs/api/endpoints.md",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "markdown",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "docs/api/examples.md",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "markdown",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "docs/api/models.md",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "markdown",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "docs/api-refrences/agents.html",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "html",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "docs/api-refrences/api.html",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "html",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "docs/examples/basic_usage.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "docs/examples/custom_agents.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "docs/guides/agent_usage.md",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "markdown",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "docs/guides/best_practices.md",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "markdown",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "docs/guides/extension_usage.md",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "markdown",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "docs/guides/getting_started.md",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "markdown",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "docs/images/architecture.png",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "text",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "docs/images/workflow.png",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "text",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "docs/setup/configuration.md",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "markdown",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "docs/setup/deployment.md",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "markdown",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "docs/setup/installation.md",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "markdown",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "examples/advanced_usage/custom_agents.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "examples/advanced_usage/multi_language_project.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "examples/advanced_usage/workflow_orchestration.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "examples/basic_usage/code_genertion.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "examples/basic_usage/file_operations.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "examples/basic_usage/simple_agent_usage.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "examples/integration_examples/jupyter_integration.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "examples/integration_examples/vscode_integration.js",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "javascript",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "extensions/intellij/build.gradle",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "text",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "extensions/intellij/gradle.properties",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "text",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "extensions/intellij/.gradle/8.9/gc.properties",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "text",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "extensions/intellij/.gradle/8.9/checksums/checksums.lock",
+      "size": 17,
+      "sha256": "d3a46161da967ed42f3a9018c0f8c3516aba904e31f8e0310dd8755eced4d22b",
+      "language": "text",
+      "line_count": 1,
+      "first_lines": "\u0003�f�(�m�,\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
+      "symbols": []
+    },
+    {
+      "path": "extensions/intellij/.gradle/8.9/dependencies-accessors/gc.properties",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "text",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "extensions/intellij/.gradle/8.9/executionHistory/executionHistory.lock",
+      "size": 17,
+      "sha256": "5b059eb3facc9f0309a3ebf87fd551440067a909d2236b7965767d77fc443f11",
+      "language": "text",
+      "line_count": 1,
+      "first_lines": "\u0003Z6�Nvk+�\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
+      "symbols": []
+    },
+    {
+      "path": "extensions/intellij/.gradle/8.9/fileChanges/last-build.bin",
+      "size": 1,
+      "sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d",
+      "language": "text",
+      "line_count": 1,
+      "first_lines": "\u0000",
+      "symbols": []
+    },
+    {
+      "path": "extensions/intellij/.gradle/8.9/fileHashes/fileHashes.lock",
+      "size": 17,
+      "sha256": "280988dd4078c4ef548cecfd039bf4651f0f5b7e6b85897886e3080098fdb852",
+      "language": "text",
+      "line_count": 1,
+      "first_lines": "\u0003M�~���)\u001b\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
+      "symbols": []
+    },
+    {
+      "path": "extensions/intellij/.gradle/buildOutputCleanup/buildOutputCleanup.lock",
+      "size": 17,
+      "sha256": "0ba88d2e3dc67447423a32046a4fd67f09f779a983f488ddf0588dc0a79e6e4d",
+      "language": "text",
+      "line_count": 1,
+      "first_lines": "\u0003��\u001a��׀>\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001",
+      "symbols": []
+    },
+    {
+      "path": "extensions/intellij/.gradle/buildOutputCleanup/cache.properties",
+      "size": 51,
+      "sha256": "dbc8f7a0ee7b69b478f06ca6cd0c573de4980db74ce77e7794ea20d0781f502e",
+      "language": "text",
+      "line_count": 2,
+      "first_lines": "#Mon Oct 20 11:22:45 EAT 2025\ngradle.version=8.9\n",
+      "symbols": []
+    },
+    {
+      "path": "extensions/intellij/.gradle/vcs-1/gc.properties",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "text",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "extensions/intellij/src/main/kotlin/com/devsage/ApiClient.kt",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "text",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "extensions/intellij/src/main/kotlin/com/devsage/DaveSageToolWindow.kt",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "text",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "extensions/intellij/src/main/kotlin/com/devsage/DevSageAction.kt",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "text",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "extensions/intellij/src/main/resources/META-INF/plugin.xml",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "text",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "extensions/jupyter/package.json",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "json",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "extensions/jupyter/tsconfig.json",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "json",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "extensions/jupyter/schema/plugin.json",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "json",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "extensions/jupyter/src/index.ts",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "typescript",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "extensions/jupyter/src/handlers/CodeHandler.ts",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "typescript",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "extensions/jupyter/src/handlers/MessageHandler.ts",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "typescript",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "extensions/jupyter/src/utils/ApiClient.ts",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "typescript",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "extensions/jupyter/src/utils/JupyterIntegration.ts",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "typescript",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "extensions/jupyter/src/widgets/ChatWidget.ts",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "typescript",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "extensions/jupyter/src/widgets/DevSageWidget.ts",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "typescript",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "extensions/jupyter/style/index.css",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "css",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "extensions/vscode/extension.js",
+      "size": 1626,
+      "sha256": "080cc22326946ec847c312eac9a2c88d3369def24359496f1f99582f66e4539b",
+      "language": "javascript",
+      "line_count": 53,
+      "first_lines": "const vscode = require('vscode');\nconst axios = require('axios');\n\nfunction activate(context) {\n    console.log('DevSage extension is now active!');\n\n    // Register command for asking DevSage\n    let askCommand = vscode.commands.registerCommand('devsage.ask', async function () {\n        const prompt = await vscode.window.showInputBox({\n            placeHolder: 'Ask DevSage anything about your code...',\n            prompt: 'DevSage Assistant'\n        });\n        \n        if (prompt) {\n            try {\n                const response = await queryDevSage(prompt, {\n                    currentFile: vscode.window.activeTextEditor?.document.fileName,\n                    workspace: vscode.workspace.rootPath\n                });\n                \n",
+      "symbols": [
+        "vscode",
+        "axios",
+        "activate"
+      ]
+    },
+    {
+      "path": "extensions/vscode/package.json",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "json",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "extensions/vscode/media/CHANGELOG.md",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "markdown",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "extensions/vscode/media/icon.png",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "text",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "extensions/vscode/src/commands/askDevSage.js",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "javascript",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "extensions/vscode/src/commands/autoPilotMode.js",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "javascript",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "extensions/vscode/src/commands/explainCode.js",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "javascript",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "extensions/vscode/src/commands/refactorCode.js",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "javascript",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "extensions/vscode/src/providers/CodeActionProvider.js",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "javascript",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "extensions/vscode/src/providers/CompletionProvider.js",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "javascript",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "extensions/vscode/src/providers/HoverProvider.js",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "javascript",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "extensions/vscode/src/utils/apiClient.js",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "javascript",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "extensions/vscode/src/utils/documentParser.js",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "javascript",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "gui/main.js",
+      "size": 745,
+      "sha256": "beaca979726a8bc152d9205e724ee6b64af529c155113abe51b4d9f7338bb66c",
+      "language": "javascript",
+      "line_count": 35,
+      "first_lines": "const { app, BrowserWindow } = require('electron');\nconst path = require('path');\n\nfunction createWindow() {\n  const win = new BrowserWindow({\n    width: 1200,\n    height: 800,\n    webPreferences: {\n      nodeIntegration: true,\n      contextIsolation: false,\n      enableRemoteModule: true\n    }\n  });\n\n  win.loadFile('public/index.html');\n  \n  // Open DevTools in development\n  if (process.env.NODE_ENV === 'development') {\n    win.webContents.openDevTools();\n  }\n",
+      "symbols": [
+        "path",
+        "createWindow"
+      ]
+    },
+    {
+      "path": "gui/package.json",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "json",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "gui/preload.js",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "javascript",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "gui/ai-client/.gitignore",
+      "size": 277,
+      "sha256": "d50ab07e11fa4bf3b1c7c3312e1d7baeab56cca756832ccf40476823ad2a38b7",
+      "language": "text",
+      "line_count": 24,
+      "first_lines": "# Logs\nlogs\n*.log\nnpm-debug.log*\nyarn-debug.log*\nyarn-error.log*\npnpm-debug.log*\nlerna-debug.log*\n\nnode_modules\ndist\ndist-ssr\n*.local\n\n# Editor directories and files\n.vscode/*\n!.vscode/extensions.json\n.idea\n.DS_Store\n*.suo\n",
+      "symbols": []
+    },
+    {
+      "path": "gui/ai-client/eslint.config.js",
+      "size": 792,
+      "sha256": "8072e235e93520431830159f220f3ce18ddae8ec581f4503446173dd009b4e15",
+      "language": "javascript",
+      "line_count": 29,
+      "first_lines": "import js from '@eslint/js'\nimport globals from 'globals'\nimport reactHooks from 'eslint-plugin-react-hooks'\nimport reactRefresh from 'eslint-plugin-react-refresh'\nimport { defineConfig, globalIgnores } from 'eslint/config'\n\nexport default defineConfig([\n  globalIgnores(['dist']),\n  {\n    files: ['**/*.{js,jsx}'],\n    extends: [\n      js.configs.recommended,\n      reactHooks.configs['recommended-latest'],\n      reactRefresh.configs.vite,\n    ],\n    languageOptions: {\n      ecmaVersion: 2020,\n      globals: globals.browser,\n      parserOptions: {\n        ecmaVersion: 'latest',\n",
+      "symbols": []
+    },
+    {
+      "path": "gui/ai-client/index.html",
+      "size": 371,
+      "sha256": "6a73cec883e65d07bd165b280003ed121514c3f0735c425c8a7c23bf9ce543f9",
+      "language": "html",
+      "line_count": 13,
+      "first_lines": "<!doctype html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\" />\n    <link rel=\"icon\" type=\"image/svg+xml\" href=\"/vite.svg\" />\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n    <title>ai-client</title>\n  </head>\n  <body>\n    <div id=\"root\"></div>\n    <script type=\"module\" src=\"/src/main.jsx\"></script>\n  </body>\n</html>\n",
+      "symbols": []
+    },
+    {
+      "path": "gui/ai-client/package.json",
+      "size": 1055,
+      "sha256": "ffde23b2258bca4d7bd9edbac70a4f6b8e9796287daf94f14220ca3866dd2bed",
+      "language": "json",
+      "line_count": 40,
+      "first_lines": "{\n  \"name\": \"ai-client\",\n  \"private\": true,\n  \"version\": \"0.0.0\",\n  \"type\": \"module\",\n  \"scripts\": {\n    \"dev\": \"vite\",\n    \"build\": \"vite build\",\n    \"lint\": \"eslint .\",\n    \"preview\": \"vite preview\"\n  },\n  \"dependencies\": {\n    \"@monaco-editor/react\": \"^4.7.0\",\n    \"axios\": \"^1.12.2\",\n    \"date-fns\": \"^4.1.0\",\n    \"lucide-react\": \"^0.546.0\",\n    \"monaco-editor\": \"^0.54.0\",\n    \"react\": \"^18.3.1\",\n    \"react-dom\": \"^18.3.1\",\n    \"react-resizable-panels\": \"^3.0.6\",\n",
+      "symbols": []
+    },
+    {
+      "path": "gui/ai-client/pnpm-lock.yaml",
+      "size": 97379,
+      "sha256": "b66535e85f8068c16b6f4d852201d10ccb77331561ea49da65a7d1ac24bbaf2c",
+      "language": "yaml",
+      "line_count": 2950,
+      "first_lines": "lockfileVersion: '9.0'\n\nsettings:\n  autoInstallPeers: true\n  excludeLinksFromLockfile: false\n\nimporters:\n\n  .:\n    dependencies:\n      '@monaco-editor/react':\n        specifier: ^4.7.0\n        version: 4.7.0(monaco-editor@0.54.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)\n      axios:\n        specifier: ^1.12.2\n        version: 1.12.2\n      date-fns:\n        specifier: ^4.1.0\n        version: 4.1.0\n      lucide-react:\n",
+      "symbols": []
+    },
+    {
+      "path": "gui/ai-client/pnpm-workspace.yaml",
+      "size": 37,
+      "sha256": "5e44563f7e7e96f2783d6ae28e84f96f77734bee1b0aac97d20ea38a8a5bff92",
+      "language": "yaml",
+      "line_count": 2,
+      "first_lines": "onlyBuiltDependencies:\n  - esbuild\n",
+      "symbols": []
+    },
+    {
+      "path": "gui/ai-client/postcss.config.js",
+      "size": 86,
+      "sha256": "374f669f08b18e67d0a7264fa45b71228017e604fe7f6db8a5c1bd5ba27e5c98",
+      "language": "javascript",
+      "line_count": 6,
+      "first_lines": "export default {\n  plugins: {\n    tailwindcss: {},\n    autoprefixer: {},\n  },\n}\n",
+      "symbols": []
+    },
+    {
+      "path": "gui/ai-client/preload.js",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "javascript",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "gui/ai-client/README.md",
+      "size": 1173,
+      "sha256": "0592a648101d2fb3057915284295c2c8b4cb794ad2e7fcb87caa2b67a6bbb0d3",
+      "language": "markdown",
+      "line_count": 16,
+      "first_lines": "# React + Vite\n\nThis template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.\n\nCurrently, two official plugins are available:\n\n- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh\n- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh\n\n## React Compiler\n\nThe React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).\n\n## Expanding the ESLint configuration\n\nIf you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.\n",
+      "symbols": []
+    },
+    {
+      "path": "gui/ai-client/tailwind.config.js",
+      "size": 135,
+      "sha256": "31529beef703c43c52fb2cbedd353c67df7f81eb60933296cb4ebb635d19a383",
+      "language": "javascript",
+      "line_count": 9,
+      "first_lines": "/** @type {import('tailwindcss').Config} */\nexport default {\n  content: [],\n  theme: {\n    extend: {},\n  },\n  plugins: [],\n}\n\n",
+      "symbols": []
+    },
+    {
+      "path": "gui/ai-client/vite.config.js",
+      "size": 168,
+      "sha256": "5cabb639b6b62e19064337abc9f5b4fda0f83e50a47396ca9a3bba388abfdd13",
+      "language": "javascript",
+      "line_count": 7,
+      "first_lines": "import { defineConfig } from 'vite'\nimport react from '@vitejs/plugin-react'\n\n// https://vite.dev/config/\nexport default defineConfig({\n  plugins: [react()],\n})\n",
+      "symbols": []
+    },
+    {
+      "path": "gui/ai-client/public/vite.svg",
+      "size": 1497,
+      "sha256": "4a748afd443918bb16591c834c401dae33e87861ab5dbad0811c3a3b4a9214fb",
+      "language": "text",
+      "line_count": 1,
+      "first_lines": "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" aria-hidden=\"true\" role=\"img\" class=\"iconify iconify--logos\" width=\"31.88\" height=\"32\" preserveAspectRatio=\"xMidYMid meet\" viewBox=\"0 0 256 257\"><defs><linearGradient id=\"IconifyId1813088fe1fbc01fb466\" x1=\"-.828%\" x2=\"57.636%\" y1=\"7.652%\" y2=\"78.411%\"><stop offset=\"0%\" stop-color=\"#41D1FF\"></stop><stop offset=\"100%\" stop-color=\"#BD34FE\"></stop></linearGradient><linearGradient id=\"IconifyId1813088fe1fbc01fb467\" x1=\"43.376%\" x2=\"50.316%\" y1=\"2.242%\" y2=\"89.03%\"><stop offset=\"0%\" stop-color=\"#FFEA83\"></stop><stop offset=\"8.333%\" stop-color=\"#FFDD35\"></stop><stop offset=\"100%\" stop-color=\"#FFA800\"></stop></linearGradient></defs><path fill=\"url(#IconifyId1813088fe1fbc01fb466)\" d=\"M255.153 37.938L134.897 252.976c-2.483 4.44-8.862 4.466-11.382.048L.875 37.958c-2.746-4.814 1.371-10.646 6.827-9.67l120.385 21.517a6.537 6.537 0 0 0 2.322-.004l117.867-21.483c5.438-.991 9.574 4.796 6.877 9.62Z\"></path><path fill=\"url(#IconifyId1813088fe1fbc01fb467)\" d=\"M185.432.063L96.44 17.501a3.268 3.268 0 0 0-2.634 3.014l-5.474 92.456a3.268 3.268 0 0 0 3.997 3.378l24.777-5.718c2.318-.535 4.413 1.507 3.936 3.838l-7.361 36.047c-.495 2.426 1.782 4.5 4.151 3.78l15.304-4.649c2.372-.72 4.652 1.36 4.15 3.788l-11.698 56.621c-.732 3.542 3.979 5.473 5.943 2.437l1.313-2.028l72.516-144.72c1.215-2.423-.88-5.186-3.54-4.672l-25.505 4.922c-2.396.462-4.435-1.77-3.759-4.114l16.646-57.705c.677-2.35-1.37-4.583-3.769-4.113Z\"></path></svg>",
+      "symbols": []
+    },
+    {
+      "path": "gui/ai-client/src/App.css",
+      "size": 648,
+      "sha256": "1b75716b5511ad178574cd3e3656e5e8dd94544456944b4ff1d253c9ecc614d4",
+      "language": "css",
+      "line_count": 42,
+      "first_lines": "#root {\n  max-width: 1280px;\n  margin: 0 auto;\n  padding: 2rem;\n  text-align: center;\n}\n\n.logo {\n  height: 6em;\n  padding: 1.5em;\n  will-change: filter;\n  transition: filter 300ms;\n}\n.logo:hover {\n  filter: drop-shadow(0 0 2em #646cffaa);\n}\n.logo.react:hover {\n  filter: drop-shadow(0 0 2em #61dafbaa);\n}\n\n",
+      "symbols": []
+    },
+    {
+      "path": "gui/ai-client/src/App.jsx",
+      "size": 938,
+      "sha256": "6f3e6fe92e0c29753ac6fb10f2dabb718ba87b60fdfb7a04bcdd06241b56a913",
+      "language": "text",
+      "line_count": 35,
+      "first_lines": "import { useState } from 'react'\nimport reactLogo from './assets/react.svg'\nimport viteLogo from '/vite.svg'\nimport './App.css'\n\nfunction App() {\n  const [count, setCount] = useState(0)\n\n  return (\n    <>\n      <div>\n        <a href=\"https://vite.dev\" target=\"_blank\">\n          <img src={viteLogo} className=\"logo\" alt=\"Vite logo\" />\n        </a>\n        <a href=\"https://react.dev\" target=\"_blank\">\n          <img src={reactLogo} className=\"logo react\" alt=\"React logo\" />\n        </a>\n      </div>\n      <h1>Vite + React</h1>\n      <div className=\"card\">\n",
+      "symbols": []
+    },
+    {
+      "path": "gui/ai-client/src/index.css",
+      "size": 1222,
+      "sha256": "fede81e0dca7c81b3d1a9711347fe16374054497185451eaec71edae24703563",
+      "language": "css",
+      "line_count": 68,
+      "first_lines": ":root {\n  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;\n  line-height: 1.5;\n  font-weight: 400;\n\n  color-scheme: light dark;\n  color: rgba(255, 255, 255, 0.87);\n  background-color: #242424;\n\n  font-synthesis: none;\n  text-rendering: optimizeLegibility;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n}\n\na {\n  font-weight: 500;\n  color: #646cff;\n  text-decoration: inherit;\n}\n",
+      "symbols": []
+    },
+    {
+      "path": "gui/ai-client/src/main.jsx",
+      "size": 239,
+      "sha256": "ae81f1c01f2c8018a1ba5cf73171921c8982d90b049bb6b039ea82f8e1dec958",
+      "language": "text",
+      "line_count": 10,
+      "first_lines": "import { StrictMode } from 'react'\nimport { createRoot } from 'react-dom/client'\nimport './index.css'\nimport App from './App.jsx'\n\ncreateRoot(document.getElementById('root')).render(\n  <StrictMode>\n    <App />\n  </StrictMode>,\n)\n",
+      "symbols": []
+    },
+    {
+      "path": "gui/ai-client/src/assets/react.svg",
+      "size": 4126,
+      "sha256": "35ef61ed53b323ae94a16a8ec659b3d0af3880698791133f23b084085ab1c2e5",
+      "language": "text",
+      "line_count": 1,
+      "first_lines": "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" aria-hidden=\"true\" role=\"img\" class=\"iconify iconify--logos\" width=\"35.93\" height=\"32\" preserveAspectRatio=\"xMidYMid meet\" viewBox=\"0 0 256 228\"><path fill=\"#00D8FF\" d=\"M210.483 73.824a171.49 171.49 0 0 0-8.24-2.597c.465-1.9.893-3.777 1.273-5.621c6.238-30.281 2.16-54.676-11.769-62.708c-13.355-7.7-35.196.329-57.254 19.526a171.23 171.23 0 0 0-6.375 5.848a155.866 155.866 0 0 0-4.241-3.917C100.759 3.829 77.587-4.822 63.673 3.233C50.33 10.957 46.379 33.89 51.995 62.588a170.974 170.974 0 0 0 1.892 8.48c-3.28.932-6.445 1.924-9.474 2.98C17.309 83.498 0 98.307 0 113.668c0 15.865 18.582 31.778 46.812 41.427a145.52 145.52 0 0 0 6.921 2.165a167.467 167.467 0 0 0-2.01 9.138c-5.354 28.2-1.173 50.591 12.134 58.266c13.744 7.926 36.812-.22 59.273-19.855a145.567 145.567 0 0 0 5.342-4.923a168.064 168.064 0 0 0 6.92 6.314c21.758 18.722 43.246 26.282 56.54 18.586c13.731-7.949 18.194-32.003 12.4-61.268a145.016 145.016 0 0 0-1.535-6.842c1.62-.48 3.21-.974 4.76-1.488c29.348-9.723 48.443-25.443 48.443-41.52c0-15.417-17.868-30.326-45.517-39.844Zm-6.365 70.984c-1.4.463-2.836.91-4.3 1.345c-3.24-10.257-7.612-21.163-12.963-32.432c5.106-11 9.31-21.767 12.459-31.957c2.619.758 5.16 1.557 7.61 2.4c23.69 8.156 38.14 20.213 38.14 29.504c0 9.896-15.606 22.743-40.946 31.14Zm-10.514 20.834c2.562 12.94 2.927 24.64 1.23 33.787c-1.524 8.219-4.59 13.698-8.382 15.893c-8.067 4.67-25.32-1.4-43.927-17.412a156.726 156.726 0 0 1-6.437-5.87c7.214-7.889 14.423-17.06 21.459-27.246c12.376-1.098 24.068-2.894 34.671-5.345a134.17 134.17 0 0 1 1.386 6.193ZM87.276 214.515c-7.882 2.783-14.16 2.863-17.955.675c-8.075-4.657-11.432-22.636-6.853-46.752a156.923 156.923 0 0 1 1.869-8.499c10.486 2.32 22.093 3.988 34.498 4.994c7.084 9.967 14.501 19.128 21.976 27.15a134.668 134.668 0 0 1-4.877 4.492c-9.933 8.682-19.886 14.842-28.658 17.94ZM50.35 144.747c-12.483-4.267-22.792-9.812-29.858-15.863c-6.35-5.437-9.555-10.836-9.555-15.216c0-9.322 13.897-21.212 37.076-29.293c2.813-.98 5.757-1.905 8.812-2.773c3.204 10.42 7.406 21.315 12.477 32.332c-5.137 11.18-9.399 22.249-12.634 32.792a134.718 134.718 0 0 1-6.318-1.979Zm12.378-84.26c-4.811-24.587-1.616-43.134 6.425-47.789c8.564-4.958 27.502 2.111 47.463 19.835a144.318 144.318 0 0 1 3.841 3.545c-7.438 7.987-14.787 17.08-21.808 26.988c-12.04 1.116-23.565 2.908-34.161 5.309a160.342 160.342 0 0 1-1.76-7.887Zm110.427 27.268a347.8 347.8 0 0 0-7.785-12.803c8.168 1.033 15.994 2.404 23.343 4.08c-2.206 7.072-4.956 14.465-8.193 22.045a381.151 381.151 0 0 0-7.365-13.322Zm-45.032-43.861c5.044 5.465 10.096 11.566 15.065 18.186a322.04 322.04 0 0 0-30.257-.006c4.974-6.559 10.069-12.652 15.192-18.18ZM82.802 87.83a323.167 323.167 0 0 0-7.227 13.238c-3.184-7.553-5.909-14.98-8.134-22.152c7.304-1.634 15.093-2.97 23.209-3.984a321.524 321.524 0 0 0-7.848 12.897Zm8.081 65.352c-8.385-.936-16.291-2.203-23.593-3.793c2.26-7.3 5.045-14.885 8.298-22.6a321.187 321.187 0 0 0 7.257 13.246c2.594 4.48 5.28 8.868 8.038 13.147Zm37.542 31.03c-5.184-5.592-10.354-11.779-15.403-18.433c4.902.192 9.899.29 14.978.29c5.218 0 10.376-.117 15.453-.343c-4.985 6.774-10.018 12.97-15.028 18.486Zm52.198-57.817c3.422 7.8 6.306 15.345 8.596 22.52c-7.422 1.694-15.436 3.058-23.88 4.071a382.417 382.417 0 0 0 7.859-13.026a347.403 347.403 0 0 0 7.425-13.565Zm-16.898 8.101a358.557 358.557 0 0 1-12.281 19.815a329.4 329.4 0 0 1-23.444.823c-7.967 0-15.716-.248-23.178-.732a310.202 310.202 0 0 1-12.513-19.846h.001a307.41 307.41 0 0 1-10.923-20.627a310.278 310.278 0 0 1 10.89-20.637l-.001.001a307.318 307.318 0 0 1 12.413-19.761c7.613-.576 15.42-.876 23.31-.876H128c7.926 0 15.743.303 23.354.883a329.357 329.357 0 0 1 12.335 19.695a358.489 358.489 0 0 1 11.036 20.54a329.472 329.472 0 0 1-11 20.722Zm22.56-122.124c8.572 4.944 11.906 24.881 6.52 51.026c-.344 1.668-.73 3.367-1.15 5.09c-10.622-2.452-22.155-4.275-34.23-5.408c-7.034-10.017-14.323-19.124-21.64-27.008a160.789 160.789 0 0 1 5.888-5.4c18.9-16.447 36.564-22.941 44.612-18.3ZM128 90.808c12.625 0 22.86 10.235 22.86 22.86s-10.235 22.86-22.86 22.86s-22.86-10.235-22.86-22.86s10.235-22.86 22.86-22.86Z\"></path></svg>",
+      "symbols": []
+    },
+    {
+      "path": "gui/ai-client/src/components/agents/AgentControls.jsx",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "text",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "gui/ai-client/src/components/agents/AgentStatus.jsx",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "text",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "gui/ai-client/src/components/chat/ChatWindow.jsx",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "text",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "gui/ai-client/src/components/chat/InputBox.jsx",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "text",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "gui/ai-client/src/components/chat/Message.jsx",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "text",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "gui/ai-client/src/components/common/Footer.jsx",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "text",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "gui/ai-client/src/components/common/Header.jsx",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "text",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "gui/ai-client/src/components/common/Sidebar.jsx",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "text",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "gui/ai-client/src/components/files/CodeEditor.jsx",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "text",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "gui/ai-client/src/components/files/FileExplorer.jsx",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "text",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "gui/ai-client/src/components/files/FileTree.jsx",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "text",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "gui/ai-client/src/hooks/useAgents.js",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "javascript",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "gui/ai-client/src/hooks/useFiles.js",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "javascript",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "gui/ai-client/src/hooks/useWebSockets.js",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "javascript",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "gui/ai-client/src/stores/agentStore.js",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "javascript",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "gui/ai-client/src/stores/chatStore.js",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "javascript",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "gui/ai-client/src/stores/fileStore.js",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "javascript",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "gui/ai-client/src/styles/components.css",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "css",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "gui/ai-client/src/styles/main.css",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "css",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "gui/ai-client/src/styles/themes/dark.css",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "css",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "gui/ai-client/src/styles/themes/light.css",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "css",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "gui/ai-client/src/styles/themes/more.css",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "css",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "gui/ai-client/src/utils/api.js",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "javascript",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "gui/ai-client/src/utils/constants.js",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "javascript",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "gui/ai-client/src/utils/helper.js",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "javascript",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "languages/base.py",
+      "size": 672,
+      "sha256": "0cb99fd9aeca15ebea11b961bacc374e8e80507bf72636cc34a20272bdd6d310",
+      "language": "python",
+      "line_count": 22,
+      "first_lines": "from abc import ABC, abstractmethod\nfrom typing import Dict, Any, List\nimport subprocess\nimport os\n\nclass BaseLanguage(ABC):\n    def __init__(self, name: str, extensions: List[str]):\n        self.name = name\n        self.extensions = extensions\n    \n    @abstractmethod\n    def execute(self, filepath: str) -> Dict[str, Any]:\n        pass\n    \n    def lint(self, filepath: str) -> List[Dict[str, Any]]:\n        return []  # Default implementation\n    \n    def format_code(self, code: str) -> str:\n        return code  # Default implementation\n    \n",
+      "symbols": [
+        "BaseLanguage"
+      ]
+    },
+    {
+      "path": "languages/manager.py",
+      "size": 661,
+      "sha256": "30bea53b68a9eb21b615a4f6cda00d7cde2f52e2c5955d607d46656b3ad9b3fc",
+      "language": "python",
+      "line_count": 18,
+      "first_lines": "import os\nfrom typing import Dict\nfrom languages.base import BaseLanguage\nfrom languages.python.executor import PythonLanguage\n\nclass LanguageManager:\n    def __init__(self):\n        self.languages: Dict[str, BaseLanguage] = {\n            \"python\": PythonLanguage(),\n            # Add more languages as they are implemented\n        }\n    \n    def get_language(self, filepath: str) -> BaseLanguage:\n        extension = os.path.splitext(filepath)[1].lower()\n        for lang in self.languages.values():\n            if extension in lang.extensions:\n                return lang\n        raise ValueError(f\"Unsupported language for file: {filepath}\")",
+      "symbols": [
+        "LanguageManager"
+      ]
+    },
+    {
+      "path": "languages/_init_.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "languages/go/analyzer.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "languages/go/executor.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "languages/go/_init_.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "languages/java/analyzer.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "languages/java/executor.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "languages/java/_init_.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "languages/javascript/analyzer.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "languages/javascript/executor.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "languages/javascript/formatter.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "languages/javascript/_init_.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "languages/python/analyzer.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "languages/python/executer.py",
+      "size": 1122,
+      "sha256": "f0029d198ad0e299aeee30ce626a16bc6429d1dfab64c2fc7591ca653403d5b0",
+      "language": "python",
+      "line_count": 36,
+      "first_lines": "from languages.base import BaseLanguage\nimport subprocess\nfrom typing import Dict, Any\n\nclass PythonLanguage(BaseLanguage):\n    def __init__(self):\n        super().__init__(\"python\", [\".py\", \".pyw\"])\n    \n    def execute(self, filepath: str) -> Dict[str, Any]:\n        try:\n            result = subprocess.run(\n                [\"python\", filepath],\n                capture_output=True,\n                text=True,\n                timeout=30\n            )\n            return {\n                \"success\": result.returncode == 0,\n                \"stdout\": result.stdout,\n                \"stderr\": result.stderr,\n",
+      "symbols": [
+        "PythonLanguage"
+      ]
+    },
+    {
+      "path": "languages/python/formatter.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "languages/python/_init_.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "notebooks/01_ai_model_testing.ipynb",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "text",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "notebooks/02_agent_interaction.ipynb",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "text",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "notebooks/03_code_generation.ipynb",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "text",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "notebooks/04_language_support.ipynb",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "text",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "notebooks/05_integration_testing.ipynb",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "text",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "notebooks/templates/agent_testing_template.ipynb",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "text",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "notebooks/templates/code_anaysis_template.ipynb",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "text",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "scripts/build.sh",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "shell",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "scripts/deploy.sh",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "shell",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "scripts/format.sh",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "shell",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "scripts/index_codebase.py",
+      "size": 3777,
+      "sha256": "0ee0228f2f572336a3750015ebd043189a317ba976a11c7b0df701c7f5b7f40b",
+      "language": "python",
+      "line_count": 120,
+      "first_lines": "\"\"\"\nSimple codebase indexer for the devsage project.\nWalks the repository, collects metadata for each source file, and writes a JSON index to data/code_index.json.\n\nCollected metadata per file:\n- path (relative)\n- size (bytes)\n- sha256\n- language (based on extension)\n- line_count\n- first_lines (first 20 lines for quick preview)\n- simple_symbols (for .py: top-level defs and classes)\n\nUsage:\n    python scripts/index_codebase.py\n\n\"\"\"\nimport os\nimport sys\nimport hashlib\n",
+      "symbols": []
+    },
+    {
+      "path": "scripts/install.sh",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "shell",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "scripts/README_index.md",
+      "size": 599,
+      "sha256": "a6eaa629ab421f4f5d51072ff993ad68765e8e5350c47fd13a7f0f0a0d2fe0c9",
+      "language": "markdown",
+      "line_count": 20,
+      "first_lines": "# Codebase Indexer\n\nThis small script creates a JSON index of the repository under `data/code_index.json`.\n\nUsage\n\n1. Ensure you have Python 3.8+ available.\n2. From the repository root run:\n\n    python scripts/index_codebase.py\n\nWhat it does\n\n- Walks the repository (skips common build and env folders).\n- Records path, size, sha256, language, line count, first 20 lines, and simple symbol extraction for supported languages.\n\nNext steps\n\n- Add CLI flags (exclude/include globs, update existing index, incremental updates).\n- Integrate with vectorstore/semantic search pipeline.\n",
+      "symbols": []
+    },
+    {
+      "path": "scripts/setup.sh",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "shell",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "scripts/test.sh",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "shell",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "scripts/docker/build-images.sh",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "shell",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "scripts/docker/cleanup.sh",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "shell",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "scripts/docker/deploy-stack.sh",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "shell",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "scripts/releases/build-installers.sh",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "shell",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "scripts/releases/package-extension.sh",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "shell",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "scripts/releases/upload-assets.sh",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "shell",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "templates/extension_templates/jupyter_widget.ts.template",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "text",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "templates/extension_templates/vscode_extension.js.template",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "text",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "tests/conftest.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "tests/_init_.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "tests/fixtures/sample_code/javascript_sample.js",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "javascript",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "tests/fixtures/sample_code/java_sample.java",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "java",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "tests/fixtures/sample_code/python_sample.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "tests/fixtures/test_projects/mock_data.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "tests/integration/test_agent_workflow.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "tests/integration/test_api_integration.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "tests/integration/test_extension_integration.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "tests/integration/test_gui_integration.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "tests/unit/agents/test_coordinator.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "tests/unit/agents/test_editor.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "tests/unit/agents/test_reader.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "tests/unit/agents/test_write.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "tests/unit/api/test_models.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "tests/unit/api/test_routes.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "tests/unit/core/test_config.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "tests/unit/core/test_utils.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "tests/unit/languages/test_javascript.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "tests/unit/languages/test_pyhon.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "vectorstore/chunking.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "vectorstore/embeddings.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "vectorstore/index.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "vectorstore/memory_manager.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "vectorstore/retriever.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    },
+    {
+      "path": "vectorstore/_init_.py",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "language": "python",
+      "line_count": 0,
+      "first_lines": "",
+      "symbols": []
+    }
+  ]
+}

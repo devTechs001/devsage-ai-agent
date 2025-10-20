@@ -1,0 +1,34 @@
+repos:
+- repo: local
+  hooks:
+    - id: update-code-index
+      name: Update code index
+      entry: python scripts/index_codebase.py --pre-commit
+      language: system
+      pass_filenames: false
+      always_run: true
+
+    - id: black
+      name: Black code formatter
+      entry: black
+      language: system
+      types: [python]
+      
+    - id: isort
+      name: isort import sorter
+      entry: isort
+      language: system
+      types: [python]
+      
+    - id: flake8
+      name: flake8 linter
+      entry: flake8
+      language: system
+      types: [python]
+      
+    - id: mypy
+      name: mypy type checker
+      entry: mypy
+      language: system
+      types: [python]
+      require_serial: true

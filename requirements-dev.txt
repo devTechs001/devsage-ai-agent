@@ -1,0 +1,27 @@
+# Development Dependencies
+pytest>=7.4.0
+pytest-cov>=4.1.0
+black>=23.7.0
+isort>=5.12.0
+flake8>=6.1.0
+mypy>=1.5.1
+pre-commit>=3.3.3
+
+# Documentation
+mkdocs>=1.5.3
+mkdocs-material>=9.4.6
+mkdocstrings>=0.23.0
+mkdocstrings-python>=1.7.3
+
+# Jupyter/Research
+jupyter>=1.0.0
+jupyterlab>=4.0.6
+ipython>=8.15.0
+ipykernel>=6.25.2
+nbformat>=5.9.2
+nbconvert>=7.8.0
+
+# Debugging and Development Tools
+debugpy>=1.8.0
+rich>=13.5.3
+icecream>=2.1.3
