@@ -1,0 +1,76 @@
+{
+  "summary": {
+    "repo": "C:\\Users\\Melanie\\devsage\\tests\\unit\\fixtures\\sample_files",
+    "file_count": 3,
+    "languages": {
+      "text": 1,
+      "python": 1,
+      "javascript": 1
+    },
+    "total_lines": 21,
+    "indexed_at": "2025-10-20T16:24:44.429797",
+    "elapsed_seconds": 0.07
+  },
+  "items": [
+    {
+      "path": "tests/unit/fixtures/sample_files/test.js",
+      "size": 142,
+      "mtime": 1760966682.6622899,
+      "sha256": "637a482e73c5e6bdb326dafd228351a99cab88bd0752d67dc574d70aa1fce8b9",
+      "language": "javascript",
+      "line_count": 11,
+      "first_lines": "\nfunction greet(name) {\n    console.log(`Hello ${name}`);\n}\n\nclass User {\n    constructor(name) {\n        this.name = name;\n    }\n}",
+      "symbols": [
+        {
+          "type": "function",
+          "name": "greet",
+          "line": 2
+        },
+        {
+          "type": "class",
+          "name": "User",
+          "line": 6
+        }
+      ],
+      "indexed_at": "2025-10-20T16:24:44.425545"
+    },
+    {
+      "path": "test.py",
+      "size": 110,
+      "mtime": 1760966682.6593113,
+      "sha256": "8938a95580012ce0e8d032a47f43cc9efdd6b87951662d2e56c163978ee1e7f7",
+      "language": "python",
+      "line_count": 8,
+      "first_lines": "\ndef hello():\n    print(\"Hello\")\n\nclass Person:\n    def __init__(self, name):\n        self.name = name",
+      "symbols": [
+        {
+          "type": "function",
+          "name": "hello",
+          "line": 2
+        },
+        {
+          "type": "class",
+          "name": "Person",
+          "line": 5
+        },
+        {
+          "type": "function",
+          "name": "__init__",
+          "line": 6
+        }
+      ],
+      "indexed_at": "2025-10-20T16:24:44.427038"
+    },
+    {
+      "path": "tests/unit/fixtures/sample_files/test.txt",
+      "size": 24,
+      "mtime": 1760966682.756403,
+      "sha256": "6d8ba2ccfbe8e5e6135490e6a8ab1caf6715dfa0d3262c6a1fa3970cb14c8aae",
+      "language": "text",
+      "line_count": 2,
+      "first_lines": "Hello, world!\nMore text",
+      "symbols": [],
+      "indexed_at": "2025-10-20T16:24:44.429704"
+    }
+  ]
+}

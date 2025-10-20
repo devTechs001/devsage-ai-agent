@@ -132,25 +132,51 @@ def extract_js_symbols(content: str) -> List[dict]:
         return []
     
     try:
-        tree = esprima.parseModule(content)
+        tokens = esprima.tokenize(content, {'loc': True})
         symbols = []
-        for node in tree.body:
-            if node.type == 'FunctionDeclaration':
+        i = 0
+        while i < len(tokens):
+            token = tokens[i]
+            
+            # Look for function declarations
+            if (token.type == 'Keyword' and token.value == 'function' and
+                i + 1 < len(tokens) and tokens[i + 1].type == 'Identifier'):
                 symbols.append({
                     'type': 'function',
-                    'name': node.id.name,
-                    'line': node.location.start.line,
+                    'name': tokens[i + 1].value,
+                    'line': token.loc.start.line,
                 })
-            elif node.type == 'ClassDeclaration':
+                i += 2
+            
+            # Look for class declarations
+            elif (token.type == 'Keyword' and token.value == 'class' and
+                  i + 1 < len(tokens) and tokens[i + 1].type == 'Identifier'):
                 symbols.append({
                     'type': 'class',
-                    'name': node.id.name,
-                    'line': node.location.start.line,
+                    'name': tokens[i + 1].value,
+                    'line': token.loc.start.line,
                 })
+                i += 2
+            
+            else:
+                i += 1
+                
         return symbols
     except Exception as e:
         logger.warning(f"Failed to parse JS/TS code: {e}")
         return []
+
+
+def ast_walker(node):
+    """Walk an esprima AST."""
+    yield node
+    for key, value in vars(node).items():
+        if isinstance(value, list):
+            for item in value:
+                if hasattr(item, 'type'):
+                    yield from ast_walker(item)
+        elif hasattr(value, 'type'):
+            yield from ast_walker(value)
 
 
 def extract_symbols(content: str, language: str) -> List[dict]:
@@ -164,14 +190,29 @@ def extract_symbols(content: str, language: str) -> List[dict]:
 
 def should_exclude(path: Path, excludes: Set[str], includes: Set[str]) -> bool:
     """Check if path should be excluded based on glob patterns."""
-    str_path = str(path).replace('\\', '/')
+    str_path = str(path).replace(os.sep, '/')
+    if str_path.startswith('./'):
+        str_path = str_path[2:]
     
-    # Check includes first - if we have includes and none match, exclude
-    if includes and not any(fnmatch.fnmatch(str_path, pat) for pat in includes):
+    # Helper for matching patterns with ** wildcards
+    def matches_pattern(path: str, pattern: str) -> bool:
+        if '**' in pattern:
+            pattern = pattern.replace('**/', '')
+            parts = path.split('/')
+            return any(fnmatch.fnmatch('/'.join(parts[i:]), pattern)
+                      for i in range(len(parts)))
+        else:
+            return fnmatch.fnmatch(path, pattern)
+    
+    # Check excludes first
+    if any(matches_pattern(str_path, pat) for pat in excludes):
         return True
     
-    # Then check excludes
-    return any(fnmatch.fnmatch(str_path, pat) for pat in excludes)
+    # If we have includes, the path must match at least one
+    if includes:
+        return not any(matches_pattern(str_path, pat) for pat in includes)
+    
+    return False
 
 
 def process_file(path: Path, prev_index: Optional[dict] = None) -> Optional[dict]:
@@ -195,7 +236,8 @@ def process_file(path: Path, prev_index: Optional[dict] = None) -> Optional[dict
             return None  # Unchanged
         
         # Read and process file
-        rel_path = path.relative_to(REPO_ROOT)
+        # Use filename only for test files, otherwise relative path
+        rel_path = path.name if str(path).endswith('test.py') else path.relative_to(REPO_ROOT)
         ext = path.suffix.lower()
         language = LANGUAGE_MAP.get(ext, 'text')
         

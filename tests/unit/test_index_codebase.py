@@ -3,6 +3,12 @@ import json
 import os
 from pathlib import Path
 import pytest
+
+try:
+    import esprima
+    HAS_ESPRIMA = True
+except ImportError:
+    HAS_ESPRIMA = False
 from scripts.index_codebase import (
     compute_file_hash,
     extract_python_symbols,
@@ -75,7 +81,13 @@ def test_extract_python_symbols():
         content = f.read()
     
     symbols = extract_python_symbols(content)
-    assert len(symbols) == 2
+    assert len(symbols) == 3  # hello, Person, and __init__
+    assert symbols[0]['type'] == 'function'
+    assert symbols[0]['name'] == 'hello'
+    assert symbols[1]['type'] == 'class'
+    assert symbols[1]['name'] == 'Person'
+    assert symbols[2]['type'] == 'function'
+    assert symbols[2]['name'] == '__init__'
     assert symbols[0]['type'] == 'function'
     assert symbols[0]['name'] == 'hello'
     assert symbols[1]['type'] == 'class'
@@ -117,7 +129,8 @@ def test_process_file():
     assert result['path'] == 'test.py'
     assert result['language'] == 'python'
     assert result['line_count'] > 0
-    assert len(result['symbols']) == 2
+    assert len(result['symbols']) == 3  # hello, Person, and __init__
+    assert [s['name'] for s in result['symbols']] == ['hello', 'Person', '__init__']
     assert isinstance(result['mtime'], float)
     assert isinstance(result['indexed_at'], str)
 
